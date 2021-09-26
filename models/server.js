@@ -15,6 +15,7 @@ class Server {
         //app routes
         this.routes();
         this.port = process.env.PORT;
+        this.host = process.env.HOST;
     }
 
     async connectDB() {
@@ -35,7 +36,7 @@ class Server {
     }
 
     listen() {
-        this.app.listen(this.port);
+        this.app.listen(this.port, this.host);
     }
 }
 
