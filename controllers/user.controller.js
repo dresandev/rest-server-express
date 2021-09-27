@@ -78,9 +78,6 @@ const patch = async (req, res = response) => {
 
 const destroy = async (req = request, res = response) => {
     const { id } = req.params;
-    //eliminacion fisica de la bbdd
-    //const deletedUser = await User.findByIdAndDelete(id);
-
     //eliminacion para no perder la integridad referencial
     const deletedUser = await User.findByIdAndUpdate(id, { status: false });
 
