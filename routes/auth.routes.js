@@ -12,4 +12,9 @@ router.post('/login', [
     fieldsValidator
 ], LoginController.login);
 
+router.post('/google', [
+    check('id_token', 'El id token es obligatorio').not().isEmpty(),
+    fieldsValidator
+], LoginController.googleSignin);
+
 module.exports = router;
