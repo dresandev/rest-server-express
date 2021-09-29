@@ -11,8 +11,13 @@ class Server {
         //middlewares
         this.middlewares();
         //paths 
-        this.authPath = '/api/auth';
-        this.userPath = '/api/users';
+        this.paths = {
+            auth      : '/api/auth',
+            categories: '/api/categories',
+            user      : '/api/users',
+            products  : '/api/products',
+            search    : '/api/search',
+        };
         //app routes
         this.routes();
         this.port = process.env.PORT;
@@ -24,8 +29,11 @@ class Server {
     }
 
     routes() {
-        this.app.use(this.authPath, require('../routes/auth.routes'));
-        this.app.use(this.userPath, require('../routes/user.routes'));
+        this.app.use(this.paths.auth, require('../routes/auth.routes'));
+        this.app.use(this.paths.user, require('../routes/user.routes'));
+        this.app.use(this.paths.categories, require('../routes/categories.routes'));
+        this.app.use(this.paths.products, require('../routes/products.routes'));
+        this.app.use(this.paths.search, require('../routes/search.routes'));
     }
 
     middlewares() {
@@ -34,6 +42,7 @@ class Server {
         this.app.use(cors());
         //lectura y parseo del body de una peticion
         this.app.use(express.json());
+        //para manejar el contenido estatico en la carpeta public
         this.app.use(express.static('public'));
     }
 

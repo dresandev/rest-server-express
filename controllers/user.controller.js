@@ -61,7 +61,7 @@ const put = async (req = request, res = response) => {
     if (password) {
         const salt = bcryptjs.genSaltSync();
         //aqui lo que estoy haciendo es agregarlo
-        //la propiedad passwor no esta en resto
+        //la propiedad password no esta en resto
         //ya que anteriormente desestructuramos
         //y sacamos esa propiedad de ahi
         resto.password = bcryptjs.hashSync(password, salt);
