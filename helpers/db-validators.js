@@ -25,10 +25,20 @@ const productExistById = async (id) => {
     if (!productExist) throw new Error('El Producto no existe');
 }
 
+const collectionValidate = (collection = '', validCollections = []) => {
+    if (!validCollections.includes(collection)) {
+        throw new Error(`La colección ${collection} no es permitida - ${validCollections}`);
+    }
+    //recordar retornar true en caso de que esta validacion la ejecutemos
+    //con una funcion que retorna esta funcion 
+    return true;
+}
+
 module.exports = {
     validRole,
     emailExist,
     userExistById,
     categoryExistById,
-    productExistById
+    productExistById,
+    collectionValidate
 }

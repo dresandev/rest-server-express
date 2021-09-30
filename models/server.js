@@ -1,7 +1,9 @@
 const cors = require('cors');
 const express = require('express');
-const { dbCOnexion } = require('../database/config.db');
 require('dotenv').config();
+const fileUpload = require('express-fileupload');
+
+const { dbCOnexion } = require('../database/config.db');
 
 class Server {
     constructor() {
@@ -17,6 +19,7 @@ class Server {
             user      : '/api/users',
             products  : '/api/products',
             search    : '/api/search',
+            uploads   : '/api/uploads'
         };
         //app routes
         this.routes();
@@ -34,6 +37,7 @@ class Server {
         this.app.use(this.paths.categories, require('../routes/categories.routes'));
         this.app.use(this.paths.products, require('../routes/products.routes'));
         this.app.use(this.paths.search, require('../routes/search.routes'));
+        this.app.use(this.paths.uploads, require('../routes/uploads.routes'));
     }
 
     middlewares() {
@@ -44,6 +48,12 @@ class Server {
         this.app.use(express.json());
         //para manejar el contenido estatico en la carpeta public
         this.app.use(express.static('public'));
+        //upload files
+        this.app.use(fileUpload({
+            useTempFiles    : true,
+            tempFileDir     : '/tmp/',
+            createParentPath: true,
+        }));
     }
 
     listen() {
